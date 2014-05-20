@@ -4,8 +4,16 @@ var app = require('express')()
 
 server.listen(8000);
 
+queue = {}
+
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+    res.sendfile(__dirname + '/index.html');
+});
+
+app.post('/add', function (req, res) {
+    // add to queue
+    queue.push({ "track_uri" : req.track_uri, "score" : 0 })
+    res.sendfile(__dirname + '/index.html');
 });
 
 io.sockets.on('connection', function (socket) {
